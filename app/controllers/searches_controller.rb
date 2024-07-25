@@ -3,11 +3,9 @@ class SearchesController < ApplicationController
   def index
     query = params[:query]
 
-    return if query.empty?
+    return unless query
 
     exists = check_existing
-
-    print 'it exists ', exists
 
     @searches = Search.where('lower(search_params) Like ?', "%#{query.downcase}%")
 
@@ -17,6 +15,8 @@ class SearchesController < ApplicationController
     end
 
     return if exists
+
+    print 'after existss'
 
     Search.create(ip_address: request.remote_ip, search_params: params[:query], count: 1)
   end
@@ -30,16 +30,17 @@ class SearchesController < ApplicationController
 
   def check_existing
     query = params[:query]
-    cleaned_query = query[0...query.rindex(' ')]
+    cleaned_query = query[0...query.rindex(' ')].rstrip
     last_query_word = query.split.last
 
-    result = Search.where('lower(search_params) Like ?', "%#{cleaned_query.strip.downcase}%")
-    first_of_result = result.find { |obj| obj.search_params.include? last_query_word }
+    result = Search.where('lower(search_params) Like ?', "%#{cleaned_query.downcase}%")
+    first_of_result = result.find { |obj| (last_query_word.include? obj.search_params.split.last) || (obj.search_params.last.include? last_query_word) }
+    print first_of_result
 
     return false unless first_of_result
 
     if first_of_result &&
-       query.lstrip.length > first_of_result.search_params.length &&
+       query.rstrip.length > first_of_result.search_params.length &&
        first_of_result.ip_address == request.remote_ip
       first_of_result.search_params = query
       first_of_result.save
