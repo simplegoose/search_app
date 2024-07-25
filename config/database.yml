@@ -83,4 +83,4 @@ test:
 #
 production:
   <<: *default
-  database: search_hackathon_production
+  database: <%= ENV["SEARCH_HACKATHON_DATABASE_DATABASE"] %>
