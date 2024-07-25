@@ -38,5 +38,11 @@ module SearchHackathon
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Load .env file in development and test environments
+    if Rails.env.development? || Rails.env.test?
+      Dotenv::Rails.load
+    end
+    
   end
 end
