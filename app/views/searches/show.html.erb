@@ -1,0 +1,28 @@
+<p style="color: green"><%= notice %></p>
+
+<h1 class="title">Analytics</h1>
+
+<div id="searches-table">
+  <table class="table">
+    <thead>
+      <th style="width: 50px;">
+        ID
+      </th>
+      <th style="width: 240px;">
+        Search
+      </th>
+      <th style="width: 120px;">
+        Initiator IP
+      </th>
+      <th style="width: 100px;">
+        Similar Searches
+      </th>
+    </thead>
+
+    <tbody>
+      <% @searches.each do |search| %>
+        <%= render "tr", search: search %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

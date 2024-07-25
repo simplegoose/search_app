@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<h1 class="title">Search Engine</h1>
+
+<%= form_with(url: searches_path, method: :get, data: { controller: "search-form", turbo_frame: "searches", turbo_action: "advance" }, class: "form") do |form| %>
+  <% form.text_field :query, class: "search-input", data: {action: "input->search-form#search"}, value: params[:query], placeholder: "Type to search" %>
+<% end %>
+
+<div id="searches">
+  <% if @searches %>
+    <%= render "searches", searches: @searches %>
+  <% end %>
+</div>
+
+<div class="link">
+  <%= link_to "View analytics", analytics_path, class: "link-to" %>
+</div>

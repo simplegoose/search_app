@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "searches", class: "turbo-frame" do %>
+  <% searches.each do |search| %>
+    <%= render search %>
+  <% end %>
+<% end %>
