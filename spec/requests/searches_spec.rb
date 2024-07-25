@@ -12,29 +12,28 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/searches", type: :request do
-  
+RSpec.describe '/searches', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Search. As you add validations to Search, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     {
       ip_address: '127.0.0.1',
       search_params: 'hello world',
       count: 0
     }
-  }
+  end
 
-  describe "GET /index" do
-    it "renders a successful response" do
+  describe 'GET /index' do
+    it 'renders a successful response' do
       Search.create! valid_attributes
       get searches_url(query: 'hello')
       expect(response).to be_successful
     end
   end
 
-  describe "GET /analytics" do
-    it "renders a successful response" do
+  describe 'GET /analytics' do
+    it 'renders a successful response' do
       Search.create! valid_attributes
       get analytics_url
       expect(response).to be_successful
