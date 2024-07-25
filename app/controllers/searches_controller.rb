@@ -16,8 +16,6 @@ class SearchesController < ApplicationController
 
     return if exists
 
-    print 'after existss'
-
     Search.create(ip_address: request.remote_ip, search_params: params[:query], count: 1)
   end
 
@@ -34,8 +32,9 @@ class SearchesController < ApplicationController
     last_query_word = query.split.last
 
     result = Search.where('lower(search_params) Like ?', "%#{cleaned_query.downcase}%")
-    first_of_result = result.find { |obj| (last_query_word.include? obj.search_params.split.last) || (obj.search_params.last.include? last_query_word) }
-    print first_of_result
+    first_of_result = result.find do |obj|
+      (last_query_word.include? obj.search_params.split.last) || (obj.search_params.last.include? last_query_word)
+    end
 
     return false unless first_of_result
 
