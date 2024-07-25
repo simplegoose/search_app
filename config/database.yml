@@ -18,6 +18,10 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username:  <%= ENV["SEARCH_HACKATHON_DATABASE_USERNAME"] %>
+
+  # The password associated with the PostgreSQL role (username).
+  password:  <%= ENV["SEARCH_HACKATHON_DATABASE_PASSWORD"] %>
 
 development:
   <<: *default
