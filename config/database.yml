@@ -17,11 +17,11 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
+  host: <%= ENV["SEARCH_HACKATHON_DATABASE_HOST"] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username:  <%= ENV["SEARCH_HACKATHON_DATABASE_USERNAME"] %>
-
   # The password associated with the PostgreSQL role (username).
   password:  <%= ENV["SEARCH_HACKATHON_DATABASE_PASSWORD"] %>
+  username:  <%= ENV["SEARCH_HACKATHON_DATABASE_USERNAME"] %>
 
 development:
   <<: *default
@@ -84,5 +84,3 @@ test:
 production:
   <<: *default
   database: search_hackathon_production
-  username: search_hackathon
-  password: <%= ENV["SEARCH_HACKATHON_DATABASE_PASSWORD"] %>
