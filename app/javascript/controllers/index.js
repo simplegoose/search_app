@@ -14,6 +14,4 @@ import { application } from "controllers/application"
 
 // Eager load all controllers defined in the import map under controllers/**/*_controller
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
-import SearchFormController from "./search_form_controller"
-application.register("search-form", SearchFormController)
 eagerLoadControllersFrom("controllers", application)
